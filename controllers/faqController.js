@@ -44,11 +44,11 @@ const createFaq = asyncHandler(async (req, res, next) => {
 
   const newFaq = await Faq.create(faq);
 
-  await Workflow.findByIdAndUpdate(
-    req.body.workflowId,
-    { $push: { faqs: newFaq._id } },
-    { new: true }
-  );
+  // await Workflow.findByIdAndUpdate(
+  //   req.body.workflowId,
+  //   { $push: { faqs: newFaq._id } },
+  //   { new: true }
+  // );
 
   res.status(201).json({
     status: "success",
