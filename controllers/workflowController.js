@@ -68,7 +68,7 @@ const createWorkflow = asyncHandler(async (req, res, next) => {
     answer,
     status,
     category,
-    // questions,
+    faqs,
   });
 
   res.status(201).json({
