@@ -24,6 +24,10 @@ const createFaq = asyncHandler(async (req, res, next) => {
     isActive: req.body.isActive,
   };
 
+  if (!faq.type) {
+    next(new AppError("please specify the type", 400));
+  }
+
   if (faq.type === "type 1") {
     if (!req.body.picklist) {
       return next(
@@ -31,6 +35,7 @@ const createFaq = asyncHandler(async (req, res, next) => {
       );
     }
     faq.picklist = req.body.picklist;
+    faq.answer = null;
   }
 
   if (faq.type === "type 2") {
@@ -38,6 +43,7 @@ const createFaq = asyncHandler(async (req, res, next) => {
       return next(new AppError("Please specify the category and answer!", 400));
     }
     faq.answer = req.body.answer;
+    faq.picklist = null;
   }
 
   faq.category = req.body.category;
