@@ -57,16 +57,16 @@ const createFaq = asyncHandler(async (req, res, next) => {
 });
 
 const getFaq = asyncHandler(async (req, res) => {
-  const { question } = req.body;
+  const { faqId } = req.params;
 
-  if (!question) {
-    return next(new AppError("No question has been provided", 404));
+  if (!faqId) {
+    return next(new AppError("please provide the faqId in the param", 404));
   }
 
-  const faq = await Faq.findOne({ question });
+  const faq = await Faq.findById(faqId);
 
   if (!faq) {
-    return next(new AppError("Question not found!", 404));
+    return next(new AppError("No faq not found in the DB!", 404));
   }
 
   res.status(200).json({
