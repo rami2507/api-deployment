@@ -102,4 +102,28 @@ const deleteFaq = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { getFaqs, createFaq, getFaq, deleteFaqs, deleteFaq };
+const updateFaq = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const faq = Faq.findById(id);
+  if (!faq) {
+    return next(new AppError(`No Faq found with id: ${id}`, 404));
+  }
+  const updatedFaq = await Faq.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  res.status(200).json({
+    status: "success",
+    data: {
+      updatedFaq,
+    },
+  });
+});
+
+module.exports = {
+  getFaqs,
+  createFaq,
+  getFaq,
+  deleteFaqs,
+  deleteFaq,
+  updateFaq,
+};
