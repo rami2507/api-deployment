@@ -83,7 +83,7 @@ const deleteWorkflow = asyncHandler(async (req, res, next) => {
   if (!workflow) {
     return next(new AppError(`No workflow found with id: ${id}`, 404));
   }
-  const data = await Workflow.findByIdAndDelete(id);
+  await Workflow.findByIdAndDelete(id);
   res.status(200).json({
     status: "success",
     message: `Workflow ${id} deleted successfully`,
