@@ -7,8 +7,6 @@ const globalErrorHandling = require("./controllers/errorController");
 const importData = require("./import");
 const fs = require("fs");
 const cors = require("cors");
-const categoryRoutes = require("./routes/categoryRoutes");
-
 dotenv.config({ path: ".env" });
 
 const app = express();
@@ -29,7 +27,6 @@ app.use(cookieParser());
 // Routes
 app.use("/api/v1/faqs", faqRoutes);
 app.use("/api/v1/workflows", workflowRoutes);
-app.use("/api/v1/categories", categoryRoutes);
 
 // Global Error Handling Middleware
 app.use(globalErrorHandling);

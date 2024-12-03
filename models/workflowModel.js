@@ -5,7 +5,7 @@ const workflowSchema = new mongoose.Schema(
     name: { type: String, required: true },
     answer: { type: String, required: true },
     status: { type: String, required: true },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    category: { type: String, unique: true },
     faqs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Faq" }],
     lastRun: { type: Date, default: null }, // Add lastRun field
   },
