@@ -27,6 +27,7 @@ const getCategories = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "Categories retrieved successfully",
+    results: categories.length,
     data: { categories },
   });
 });
