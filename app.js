@@ -1,6 +1,5 @@
 const express = require("express");
-const faqRoutes = require("./routes/faqRoutes");
-const workflowRoutes = require("./routes/workflowRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const globalErrorHandling = require("./controllers/errorController");
@@ -25,8 +24,7 @@ app.use(cookieParser());
 // importData(data, Workflow);
 
 // Routes
-app.use("/api/v1/faqs", faqRoutes);
-app.use("/api/v1/workflows", workflowRoutes);
+app.use("/api/v1/categories", categoryRoutes);
 
 // Global Error Handling Middleware
 app.use(globalErrorHandling);
