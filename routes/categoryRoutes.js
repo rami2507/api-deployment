@@ -1,4 +1,5 @@
 const express = require("express");
+const { body, validationResult } = require("express-validator");
 const {
   getCategories,
   deleteCategories,
@@ -7,12 +8,20 @@ const {
   deleteCategory,
   updateCategory,
 } = require("./../controllers/categoryController");
+const { validatorMiddleware } = require("../middlewares/validatorMiddleware");
+const {
+  createCategoryValidator,
+} = require("../middlewares/validators/categoryValidators");
 const router = express.Router();
-
 router.get("/get-categories", getCategories);
 router.get("/get-one-category/:id", getCategory);
 
-router.post("/create-category", createCategory);
+router.post(
+  "/create-category",
+  createCategoryValidator,
+  validatorMiddleware,
+  createCategory
+);
 
 router.patch("/update-category/:id", updateCategory);
 
