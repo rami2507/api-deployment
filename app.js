@@ -24,7 +24,7 @@ app.use(cookieParser());
 // importData(data, Workflow);
 
 // Routes
-app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v2/categories", categoryRoutes);
 
 // Global Error Handling Middleware
 app.use(globalErrorHandling);
