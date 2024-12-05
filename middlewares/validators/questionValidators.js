@@ -6,8 +6,6 @@ const createQuestionValidator = [
     .withMessage("please specify the categoryName field"),
   body("answer").notEmpty().withMessage("please specify the description field"),
   body("categoryId")
-    .notEmpty()
-    .withMessage("please specify the categoryId field")
     .isMongoId()
     .withMessage("the categoryId is not a valid Mongod ID")
     .custom(async (value) => {
