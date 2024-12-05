@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please provide a password"],
-    minlength: 8,
+    minlength: [8, "password should be at least 8 characters"],
     select: false, // This field will not be returned in the response
   },
   role: {
