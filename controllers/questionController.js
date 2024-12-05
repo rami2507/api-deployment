@@ -23,12 +23,6 @@ const deleteQuestions = asyncHandler(async (req, res) => {
 const createQuestion = asyncHandler(async (req, res, next) => {
   const { question, answer, categoryId } = req.body;
 
-  if (!question || !question || !categoryId) {
-    return next(new AppError("please specify all field", 400));
-  }
-
-  const category = await Category.findById(categoryId);
-
   if (!category) {
     return next(new AppError("Invalid category ID", 404));
   }
