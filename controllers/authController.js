@@ -58,12 +58,25 @@ const login = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    return next(new AppError("User not found!", 404));
+    return next(new AppError("Invalid email or password!", 404));
   }
 
-  if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError("Incorrect email or password!", 401));
+  if (user.password != password) {
+    return next(new AppError("Invalid email or password!", 401));
   }
+
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+
+  res.cookie("jwt", token, { httpOnly: true });
+
+  res.status(200).json({
+    status: "success",
+    message: "Logged in successfully",
+    token,
+    data: { user },
+  });
 });
 
 module.exports = { signup, login };
