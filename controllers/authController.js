@@ -7,6 +7,7 @@ const User = require("../models/userModel");
 const protect = asyncHandler(async (req, res, next) => {
   // 1) Getting Token And Check If It's There
   let token;
+  let isAuthenticated = false;
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
