@@ -49,6 +49,21 @@ const signup = asyncHandler(async (req, res, next) => {
   });
 });
 
-const login = asyncHandler(async (req, res, next) => {});
+const login = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new AppError("Please provide email and password!", 400));
+  }
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    return next(new AppError("User not found!", 404));
+  }
+
+  if (!user || !(await user.correctPassword(password, user.password))) {
+    return next(new AppError("Incorrect email or password!", 401));
+  }
+});
 
 module.exports = { signup, login };

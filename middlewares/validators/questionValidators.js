@@ -1,5 +1,4 @@
 const { body } = require("express-validator");
-const Category = require("../../models/categoryModel");
 const createQuestionValidator = [
   body("question")
     .notEmpty()
