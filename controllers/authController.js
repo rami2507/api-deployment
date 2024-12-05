@@ -65,7 +65,7 @@ const login = asyncHandler(async (req, res, next) => {
     return next(new AppError("Invalid email or password!", 401));
   }
 
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ _id: user._id }, "JWT SECRET", {
     expiresIn: "1d",
   });
 
