@@ -69,7 +69,7 @@ const login = asyncHandler(async (req, res, next) => {
     expiresIn: "1d",
   });
 
-  res.cookie("jwt", token, { httpOnly: true });
+  res.cookie("jwt", token, { httpOnly: true, secure: true });
 
   res.status(200).json({
     status: "success",
