@@ -8,4 +8,9 @@ const getUsers = asyncHandler(async (req, res) => {
     .json({ status: "success", results: users.length, data: { users } });
 });
 
-module.exports = { getUsers };
+const deleteUsers = asyncHandler(async (req, res) => {
+  await User.deleteMany();
+  res.status(200).json({ status: "success", message: "All users deleted" });
+});
+
+module.exports = { getUsers, deleteUsers };
