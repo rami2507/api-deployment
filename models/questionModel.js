@@ -10,7 +10,7 @@ const questionModel = new mongoose.Schema(
       type: String,
       required: [true, "Answer is required"],
     },
-    category: {
+    categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: [true, "Category is required"],
