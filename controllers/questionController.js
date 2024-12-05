@@ -46,4 +46,22 @@ const createQuestion = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { createQuestion, getQuestions, deleteQuestions };
+const getQuestionByQuestionId = asyncHandler(async (req, res) => {
+  const { questionId } = req.params;
+  const question = await Question.findById(questionId);
+  if (!question) {
+    return res.status(404).json({ message: "Question not found" });
+  }
+  res.status(200).json({
+    status: "success",
+    message: "Question retrieved successfully",
+    data: { question },
+  });
+});
+
+module.exports = {
+  createQuestion,
+  getQuestions,
+  deleteQuestions,
+  getQuestionByQuestionId,
+};

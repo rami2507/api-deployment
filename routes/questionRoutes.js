@@ -3,6 +3,7 @@ const {
   getQuestions,
   deleteQuestions,
   createQuestion,
+  getQuestionByQuestionId,
 } = require("./../controllers/questionController");
 const {
   createQuestionValidator,
@@ -18,6 +19,8 @@ router.post(
 );
 
 router.get("/get-questions", getQuestions);
+
+router.get("/get-question-quesID/:questionId", getQuestionByQuestionId);
 
 router.delete("/delete-questions", deleteQuestions);
 
