@@ -30,6 +30,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
+  isAuthenticated = true;
   next();
 });
 
