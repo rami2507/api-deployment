@@ -15,6 +15,7 @@ const questionModel = new mongoose.Schema(
       ref: "Category",
       required: [true, "Category is required"],
     },
+    categoryObject: Object,
   },
   { timestamps: true }
 );

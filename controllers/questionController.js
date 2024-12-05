@@ -4,7 +4,7 @@ const AppError = require("../utils/appError");
 const Category = require("../models/categoryModel");
 
 const getQuestions = asyncHandler(async (req, res) => {
-  const questions = await Question.find().populate("category");
+  const questions = await Question.find();
   res.status(200).json({
     status: "success",
     message: "Questions retrieved successfully",
@@ -32,7 +32,12 @@ const createQuestion = asyncHandler(async (req, res, next) => {
 
   const category = categoryDoc._id;
 
-  const newQuestion = new Question({ question, answer, category });
+  const newQuestion = new Question({
+    question,
+    answer,
+    category,
+    categoryObject,
+  });
   await newQuestion.save();
   res.status(201).json({
     status: "success",
