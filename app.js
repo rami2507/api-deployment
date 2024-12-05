@@ -1,6 +1,7 @@
 const express = require("express");
 const categoryRoutes = require("./routes/categoryRoutes");
 const userRoutes = require("./routes/userRoutes");
+const questionRoutes = require("./routes/questionRoutes");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const globalErrorHandling = require("./controllers/errorController");
@@ -27,6 +28,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/v2/categories", categoryRoutes);
 app.use("/api/v2/users", userRoutes);
+app.use("/api/v2/questions", questionRoutes);
 
 // Global Error Handling Middleware
 app.use(globalErrorHandling);
