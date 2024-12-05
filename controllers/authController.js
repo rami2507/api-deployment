@@ -4,7 +4,7 @@ const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-exports.protect = asyncHandler(async (req, res, next) => {
+const protect = asyncHandler(async (req, res, next) => {
   // 1) Getting Token And Check If It's There
   let token;
   if (
@@ -22,7 +22,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
   // 2) Validate token
   const decoded = await promisify(jwt.verify)(token, "JWT SECRET");
   // 3) Check If User Still Exist
-  const currentUser = await User.findById(decoded.id);
+  const currentUser = await User.findById(decoded._id);
   if (!currentUser) {
     return next(
       new AppError("the user belonging to this token does no longer exist", 400)
@@ -79,4 +79,4 @@ const login = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { signup, login };
+module.exports = { signup, login, protect };
