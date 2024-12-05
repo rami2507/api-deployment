@@ -21,7 +21,7 @@ const deleteQuestions = asyncHandler(async (req, res) => {
 });
 
 const createQuestion = asyncHandler(async (req, res, next) => {
-  const { question, answer, category, categoryId } = req.body;
+  const { question, answer, category } = req.body;
 
   if (!category) {
     return next(new AppError("Invalid category ID", 404));
@@ -34,7 +34,7 @@ const createQuestion = asyncHandler(async (req, res, next) => {
     return next(new AppError("Category not found", 404));
   }
 
-  categoryId = categoryDoc._id;
+  const categoryId = categoryDoc._id;
 
   const newQuestion = new Question({ question, answer, categoryId });
   await newQuestion.save();
