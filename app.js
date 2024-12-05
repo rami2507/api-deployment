@@ -13,7 +13,12 @@ dotenv.config({ path: ".env" });
 const app = express();
 
 // Cors Config
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Replace with your frontend URL
+    credentials: true, // Allow sending cookies
+  })
+);
 
 // Parsing Incoming Data
 app.use(express.json());
