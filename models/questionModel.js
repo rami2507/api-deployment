@@ -10,12 +10,11 @@ const questionModel = new mongoose.Schema(
       type: String,
       required: [true, "Answer is required"],
     },
-    categoryId: {
+    category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: [true, "Category is required"],
     },
-    category: Object,
   },
   { timestamps: true }
 );

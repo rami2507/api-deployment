@@ -21,22 +21,18 @@ const deleteQuestions = asyncHandler(async (req, res) => {
 });
 
 const createQuestion = asyncHandler(async (req, res, next) => {
-  const { question, answer, category } = req.body;
+  const { question, answer, categoryObject } = req.body;
 
-  if (!category) {
-    return next(new AppError("Invalid category ID", 404));
-  }
-
-  const categoryName = category.categoryName;
+  const categoryName = categoryObject.categoryName;
   const categoryDoc = await Category.findOne({ categoryName });
 
   if (!categoryDoc) {
     return next(new AppError("Category not found", 404));
   }
 
-  const categoryId = categoryDoc._id;
+  const category = categoryDoc._id;
 
-  const newQuestion = new Question({ question, answer, categoryId });
+  const newQuestion = new Question({ question, answer, category });
   await newQuestion.save();
   res.status(201).json({
     status: "success",
