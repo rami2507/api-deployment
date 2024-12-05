@@ -4,7 +4,7 @@ const AppError = require("../utils/appError");
 const Category = require("../models/categoryModel");
 
 const getQuestions = asyncHandler(async (req, res) => {
-  const questions = await Question.find().populate("categoryId");
+  const questions = await Question.find().populate("category");
   res.status(200).json({
     status: "success",
     message: "Questions retrieved successfully",
