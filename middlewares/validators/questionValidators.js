@@ -5,15 +5,6 @@ const createQuestionValidator = [
     .notEmpty()
     .withMessage("please specify the categoryName field"),
   body("answer").notEmpty().withMessage("please specify the description field"),
-  body("categoryId")
-    .isMongoId()
-    .withMessage("the categoryId is not a valid Mongod ID")
-    .custom(async (value) => {
-      const category = await Category.findById(value);
-      if (!category) {
-        throw new Error("The specified category does not exist");
-      }
-    }),
 ];
 
 module.exports = { createQuestionValidator };
