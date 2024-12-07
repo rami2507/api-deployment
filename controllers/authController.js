@@ -89,4 +89,11 @@ const login = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { signup, login, protect, isAuthenticated };
+const logout = asyncHandler(async (req, res) => {
+  res.cookie("jwt", null, { expires: new Date(0) });
+  res
+    .status(200)
+    .json({ status: "success", message: "Logged out successfully" });
+});
+
+module.exports = { signup, login, protect, isAuthenticated, logout };

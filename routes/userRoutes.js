@@ -5,6 +5,7 @@ const {
   login,
   protect,
   isAuthenticated,
+  logout,
 } = require("./../controllers/authController");
 const {
   signupValidator,
@@ -15,6 +16,7 @@ const router = express.Router();
 router.get("/isAuthenticated", protect, isAuthenticated);
 router.post("/signup", signupValidator, validatorMiddleware, signup);
 router.post("/login", login);
+router.post("/logout", logout);
 
 router.get("/get-users", getUsers);
 router.delete("/delete-users", deleteUsers);
