@@ -6,6 +6,7 @@ const {
   protect,
   isAuthenticated,
   logout,
+  restrictTo,
 } = require("./../controllers/authController");
 const {
   signupValidator,

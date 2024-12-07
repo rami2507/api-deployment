@@ -75,6 +75,12 @@ const login = asyncHandler(async (req, res, next) => {
     return next(new AppError("Invalid email or password!", 401));
   }
 
+  if (user.role != "admin") {
+    return next(
+      new AppError("You are not authorized to access this route", 403)
+    ); // restricting access to admin routes for non-admin users. This can be customized as per the requirements.  For example, you could redirect the user to a different route or display an error message.  Please note that the role 'admin' is a placeholder and should be replaced with your actual role in your user model.  For example, 'admin', 'user', 'moderator', etc.  Also, this is a basic implementation, and you may need to add more checks or enhancements based on your specific requirements.  For example, you could check if the user has permission to access the route, or if they have a specific role assigned to them.  Please refer to the Express.js documentation for more details on implementing these features.  For example, you could use the `express-jwt` middleware to validate the JWT token and check if it has
+  }
+
   const token = jwt.sign({ _id: user._id }, "JWT SECRET", {
     expiresIn: "1d",
   });
@@ -96,4 +102,23 @@ const logout = asyncHandler(async (req, res) => {
     .json({ status: "success", message: "Logged out successfully" });
 });
 
-module.exports = { signup, login, protect, isAuthenticated, logout };
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You are not authorized to perform this action"),
+        401
+      );
+    }
+    next();
+  };
+};
+
+module.exports = {
+  signup,
+  login,
+  protect,
+  isAuthenticated,
+  logout,
+  restrictTo,
+};
