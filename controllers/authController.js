@@ -7,7 +7,6 @@ const User = require("../models/userModel");
 const protect = asyncHandler(async (req, res, next) => {
   // 1) Getting Token And Check If It's There
   let token;
-  let isAuthenticated = false;
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -16,6 +15,7 @@ const protect = asyncHandler(async (req, res, next) => {
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
+
   if (!token)
     return next(
       new AppError("Your are not logged in! Please login to get access", 401)
@@ -31,8 +31,16 @@ const protect = asyncHandler(async (req, res, next) => {
   }
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
-  isAuthenticated = true;
   next();
+});
+
+const isAuthenticated = asyncHandler(async (req, res) => {
+  const user = req.user;
+  res.json({
+    status: "success",
+    isAuthenticated: true,
+    data: { user },
+  });
 });
 
 const signup = asyncHandler(async (req, res, next) => {
@@ -81,4 +89,4 @@ const login = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { signup, login, protect };
+module.exports = { signup, login, protect, isAuthenticated };
